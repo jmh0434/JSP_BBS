@@ -1,0 +1,47 @@
+package user;
+
+import java.sql.Connection;
+import java.sql.DriveManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class UserDAO {
+	
+	private Connection conn; //자바와 데이터베이스를 연결
+	private PreparedStatement pstmt; //쿼리문 대기 및 설정
+	private ResultSet rs; //결과 값 받아오기
+	
+	//기본 생성자
+	//UserDAO가 실행되면 자동으로 생성되는 부분
+	//메소드마다 반복되는 코드를 이곳에 넣으면 코드가 간소화된다.
+	public userDAO() {
+		try {
+			String dbURL = "jdbc:mysql://localhost:3306/BBS"; //mySQL DB와 연결시켜주는 주소
+			String dbID = "root"; //mySQL 계정
+			String dbPassword = "root"; //mySQL 비밀번호
+			Class.forName("com.mysql.jdbc.Driver"); //JDBC 연결 클래스를 'string'타입으로 불러온다
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword); // 드라이브 매니저에 미리 저장했던 연결 URL과 DB계정 정보를 담아 연결 설정을 한다.
+		}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public int login(String userID, String userPassword) {
+			String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
+			try {
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setStirng(1, userID);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					if(rs.getString(1).equals(userPassword)) 
+						return 1;
+					else
+						return 0;
+				}
+				return -1;
+			} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return -2; 
+		}
+}
