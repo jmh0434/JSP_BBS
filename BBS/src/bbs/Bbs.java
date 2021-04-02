@@ -3,6 +3,7 @@ package bbs;
 public class Bbs {
 	
 	private int bbsID;
+	private int likeCount;
 	private String bbsTitle;
 	private String userID;
 	private String bbsDate;
@@ -13,6 +14,12 @@ public class Bbs {
 	}
 	public void setBbsID(int bbsID) {
 		this.bbsID = bbsID;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 	public String getBbsTitle() {
 		return bbsTitle;

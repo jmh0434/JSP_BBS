@@ -56,6 +56,27 @@ public class BbsDAO {
 		return -1; //데이터베이스 오류
 	}
 	
+	
+	public int like(String bbsTitle) {
+		PreparedStatement pstmt = null;
+	        try {
+			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsTitle = ?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, bbsTitle);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+	}
+
 	//글쓰기 메소드
 	public int write(String bbsTitle, String userID, String bbsContent) {
 		String SQL = "INSERT INTO bbs (bbsID, bbsTitle, userID, bbsDate, bbsContent, bbsAvailable) VALUES(?, ?, ?, ?, ?, ?)";
@@ -92,6 +113,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
 				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setLikeCount(rs.getInt(7));
 				list.add(bbs);
 			}
 		}catch(Exception e) {
@@ -132,6 +154,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
 				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setLikeCount(rs.getInt(7));
 				return bbs;
 			}
 		}catch (Exception e) {

@@ -3,6 +3,8 @@
 <%@	page import="java.io.PrintWriter" %>
 <%@	page import="bbs.BbsDAO" %>
 <%@	page import="bbs.Bbs" %>
+<%@	page import="likey.LikeyDAO" %>
+<%@	page import="likey.LikeyDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,6 +133,7 @@
 					</tbody>
 				</table>
 				<a href = "bbs.jsp" class = "btn btn-primary">목록</a>
+				<a onclick="return confirm('추천하시겠습니까?'')" href = "likeAction.jsp?bbsID=<%= bbsID %>" class = "btn btn-primary">추천</a>
 				
 			<!-- 해당 글의 작성자가 본인이라면 수정과 삭제가 가능하도록 코드 추가 -->
 			<%
