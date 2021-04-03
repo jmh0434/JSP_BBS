@@ -36,28 +36,31 @@ public static String getClientIP(HttpServletRequest request) {
 			script.println("<script>");
 			script.println("alert('로그인을 하세요')");
 			script.println("location.href='login.jsp'");
-			script.println("</script>");	
+			script.println("</script>");
+			script.close();
+			return;
 		}
 		
-		String bbsTitle = null;
-		if(request.getParameter("bbsTitle") != null) {
-			bbsTitle = (String) request.getParameter("bbsTitle");
+		request.setCharacterEncoding("UTF-8");
+		String bbsID = null;
+		if(request.getParameter("bbsID") != null) {
+			bbsID = (String) request.getParameter("bbsID");
 		}
 		BbsDAO bbsDAO = new BbsDAO();
 		LikeyDAO likeyDAO = new LikeyDAO();
 		// userID와 userWriteTtilte을 PK, NN 설정이기때매 중복이 불가
 		
-		int result = likeyDAO.like(userID, bbsTitle, getClientIP(request));
+		int result = likeyDAO.like(userID, bbsID, getClientIP(request));
 		// 정상적으로 1번 데이터가 들어가면 1이 출력되고
 
 		if (result == 1) {
-			result = bbsDAO.like(bbsTitle);
+			result = bbsDAO.like(bbsID);
 
 			if (result == 1) { // 1인경우 디비에서 해당 게시물 추천 완료
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('추천이 완료되었습니다.');");
-				script.println("location.href='index.jsp'");
+				script.println("location.href='bbs.jsp'");
 				script.println("</script>");
 				script.close();
 				return;

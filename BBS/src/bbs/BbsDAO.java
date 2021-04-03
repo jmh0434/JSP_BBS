@@ -57,12 +57,12 @@ public class BbsDAO {
 	}
 	
 	
-	public int like(String bbsTitle) {
+	public int like(String bbsID) {
 		PreparedStatement pstmt = null;
 	        try {
-			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsTitle = ?";
+			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsID = ?";
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, bbsTitle);
+			pstmt.setInt(1, Integer.parseInt(bbsID));
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
