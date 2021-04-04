@@ -12,17 +12,14 @@ public static String getClientIP(HttpServletRequest request) {
     if (ip == null || ip.length() == 0) {
         ip = request.getHeader("Proxy-Client-IP");
     }
-
     if (ip == null || ip.length() == 0) {
         ip = request.getHeader("WL-Proxy-Client-IP");
     }
-
     if (ip == null || ip.length() == 0) {
         ip = request.getRemoteAddr() ;
     }
     return ip;
 }
-
 %>
 	<%
 		//현재 세션 상태를 체크한다
@@ -52,10 +49,8 @@ public static String getClientIP(HttpServletRequest request) {
 		
 		int result = likeyDAO.like(userID, bbsID, getClientIP(request));
 		// 정상적으로 1번 데이터가 들어가면 1이 출력되고
-
 		if (result == 1) {
 			result = bbsDAO.like(bbsID);
-
 			if (result == 1) { // 1인경우 디비에서 해당 게시물 추천 완료
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
