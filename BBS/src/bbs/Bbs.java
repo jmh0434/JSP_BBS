@@ -9,6 +9,7 @@ public class Bbs {
 	private String bbsContent;
 	private int bbsAvailable;
 	private int likeCount;
+	private int readCount;
 	
 	public int getBbsID() {
 		return bbsID;
@@ -52,5 +53,10 @@ public class Bbs {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-	
+	public int getReadCount() {
+		return readCount;
+	}
+	public void setReadCount(int readCount) {
+		this.readCount = readCount;
+	}
 }

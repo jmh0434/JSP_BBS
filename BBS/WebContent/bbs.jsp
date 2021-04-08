@@ -111,6 +111,7 @@
 						<th style = "background-color: #eeeeee; text-align : center;">작성자</th>
 						<th style = "background-color: #eeeeee; text-align : center;">작성일</th>
 						<th style = "background-color: #eeeeee; text-align : center;">추천</th>
+						<th style = "background-color: #eeeeee; text-align : center;">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -133,6 +134,7 @@
 						<td><%= list.get(i).getBbsDate().substring(0,11) + list.get(i).getBbsDate().substring(11,13)+"시" 
 							+ list.get(i).getBbsDate().substring(14,16) + "분" %></td>
 						<td><%= list.get(i).getLikeCount() %></td>
+						<td><%= list.get(i).getReadCount() %></td>
 					</tr>
 					<% 
 						}

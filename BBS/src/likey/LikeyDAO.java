@@ -34,6 +34,6 @@ public class LikeyDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //추천 중복 오류
+		return -1; 
 		}
 }
