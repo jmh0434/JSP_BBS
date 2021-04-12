@@ -16,10 +16,10 @@ public class UserDAO {
 	{
 		try 
 		{
-			String dbURL = "jdbc:mysql://localhost:3306/bbs?serverTimezone=Asia/Seoul&useSSL=false&useUnicode=true&characterEncoding=UTF-8";
+			String dbURL = "jdbc:mysql://localhost:3306/bbs";
 			String dbID = "root";
 			String dbPassword = "root";
-			Class.forName("com.mysql.jdbc.Driver");	// Driver ¶óÀÌºê·¯¸®
+			Class.forName("com.mysql.jdbc.Driver");	// Driver ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		}
 		catch (Exception e)
@@ -28,32 +28,32 @@ public class UserDAO {
 		}
 	}
 	
-	// ·Î±×ÀÎÀ» ÇÏ´Â ÇÔ¼ö
+	// ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	public int login(String userID, String userPassword)
 	{
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 		try
 		{
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1,  userID);		// SQL ÀÎÁ§¼Ç ÇØÅ· ¹æ¾î ??
+			pstmt.setString(1,  userID);		// SQL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å· ï¿½ï¿½ï¿½ ??
 			rs = pstmt.executeQuery();
 			if (rs.next())
 			{
 				if(rs.getString(1).equals(userPassword))
-					return 1;	// ·Î±×ÀÎ ¼º°ø
+					return 1;	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				else
-					return 0;	// ºñ¹Ð¹øÈ£ Æ²¸²
+					return 0;	// ï¿½ï¿½Ð¹ï¿½È£ Æ²ï¿½ï¿½
 			}
-			return -1;	// ¾ÆÀÌµð°¡ ¾øÀ½
+			return -1;	// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return -2; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -2; // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 	
-	// È¸¿ø°¡ÀÔÀ» ÇÏ´Â ÇÔ¼ö
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	public int join(User user)
 	{
 		String SQL = "INSERT INTO USER VALUES(?, ?, ?, ?, ?)";
@@ -71,14 +71,14 @@ public class UserDAO {
 		{
 			e.printStackTrace();
 		}
-		return -1; 	// µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; 	// ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 	
 	
-	// ¾ÆÀÌµð¸¦ Ã£´Â ÇÔ¼ö
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public String findID(String userName, String userEmail)
 	{
-		// userNameÀ¸·Î ÇØ´çÇÏ´Â userEmail¸¦ select ÇÏ´Â SQL
+		// userNameï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ userEmailï¿½ï¿½ select ï¿½Ï´ï¿½ SQL
 		String SQL = "SELECT userID FROM USER WHERE userName = ? AND userEmail = ?";
 
 		try
@@ -89,20 +89,20 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next())
 			{
-				return rs.getString(1);	// rs´Â Ã¹ ¹øÂ°°¡ 1ÀÌ´Ù;; (0ºÎÅÍ ½ÃÀÛÀ» ¾ÈÇÑ´Ù)
+				return rs.getString(1);	// rsï¿½ï¿½ Ã¹ ï¿½ï¿½Â°ï¿½ï¿½ 1ï¿½Ì´ï¿½;; (0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½)
 			}
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return null;	// ¸¸¾à¿¡ ÀÌ¸§ÀÌ³ª ÀÌ¸ÞÀÏÀÌ Æ²·È´Ù¸é null ¹ÝÈ¯
+		return null;	// ï¿½ï¿½ï¿½à¿¡ ï¿½Ì¸ï¿½ï¿½Ì³ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ Æ²ï¿½È´Ù¸ï¿½ null ï¿½ï¿½È¯
 	}
 	
-	// ºñ¹Ð¹øÈ£¸¦ Ã£´Â ÇÔ¼ö
+	// ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public int findPwd(String userID, String userEmail)
 	{
-		// USER Å×ÀÌºí¿¡ userID¿Í userEmail µÑ ´Ù ¸Â´Â µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+		// USER ï¿½ï¿½ï¿½Ìºï¿½ userIDï¿½ï¿½ userEmail ï¿½ï¿½ ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		String SQL = "SELECT * FROM USER WHERE userID = ? AND userEmail = ?";	
 		try	
 		{
@@ -111,18 +111,18 @@ public class UserDAO {
 			pstmt.setString(2, userEmail);
 			rs = pstmt.executeQuery();
 			if (rs.next())
-				return 1; // ÇØ´çÇÏ´Â µ¥ÀÌÅÍ°¡ Á¸Àç
+				return 1; // ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
 			else
-				return -1;	// ÇØ´çÇÏ´Â µ¥ÀÌÅÍ°¡ Á¸Àç X
+				return -1;	// ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ X
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return -2; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -2; // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 		
-	// ºñºô¹øÈ£¸¦ ¹Ù²Ù´Â ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ù²Ù´ï¿½ ï¿½Ô¼ï¿½
 	public int changePwd(String userPassword, String userID)
 	{
 		String SQL = "UPDATE USER SET userPassword = ? WHERE userID = ?";
@@ -131,12 +131,12 @@ public class UserDAO {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userPassword);
 			pstmt.setString(2, userID);
-			return pstmt.executeUpdate();	// INSERT / DELETE / UPDATE °ü·Ã ±¸¹®¿¡¼­´Â ¹Ý¿µµÈ ·¹ÄÚµåÀÇ °Ç¼ö¸¦ ¹ÝÈ¯
+			return pstmt.executeUpdate();	// INSERT / DELETE / UPDATE ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ ï¿½Ç¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return -1; 	// µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; 	// ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 }
